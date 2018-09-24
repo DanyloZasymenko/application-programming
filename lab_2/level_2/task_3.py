@@ -1,17 +1,19 @@
-import re
 import xml.etree.cElementTree as ET
 from collections import Counter
+from lab_2.utils import readByPattern
 
-words = []
-pattern = re.compile('\w+\'\w+|\w+')
-with open('../a.txt', mode='r', encoding='utf-8') as a:
-    for line in a:
-        for word in pattern.findall(line):
-            words.append(word)
+path = '../a.txt'
+pattern = '\w+\'\w+|\w+'
+
+words = readByPattern(path, pattern)
+
+print(words)
 
 counter = Counter()
 for word in words:
     counter[word] += 1
+
+print(counter)
 
 root = ET.Element("root")
 for word in counter:
