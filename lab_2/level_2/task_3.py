@@ -1,11 +1,14 @@
+import re
 import xml.etree.cElementTree as ET
 from collections import Counter
-from lab_2.utils import readByPattern
 
 path = '../a.txt'
-pattern = '\w+\'\w+|\w+'
-
-words = readByPattern(path, pattern)
+pattern = re.compile('\w+\'\w+|\w+')
+words = []
+with open(path, mode='r', encoding='utf-8') as a:
+    for line in a:
+        for word in re.findall(pattern, line):
+            words.append(word)
 
 print(words)
 
