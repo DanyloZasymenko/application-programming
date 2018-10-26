@@ -1,47 +1,36 @@
 <root>
-    <word number="1">Садок</word>
-    <word number="1">вишневий</word>
-    <word number="4">коло</word>
-    <word number="3">хати</word>
-    <word number="1">Хрущі</word>
-    <word number="1">над</word>
-    <word number="1">вишнями</word>
-    <word number="1">гудуть</word>
-    <word number="1">Плугатарі</word>
-    <word number="1">з</word>
-    <word number="1">плугами</word>
-    <word number="1">йдуть</word>
-    <word number="1">Співають</word>
-    <word number="1">ідучи</word>
-    <word number="2">дівчата</word>
-    <word number="2">А</word>
-    <word number="1">матері</word>
-    <word number="2">вечерять</word>
-    <word number="1">ждуть</word>
-    <word number="1">Сім'я</word>
-    <word number="1">вечеря</word>
-    <word number="1">Вечірня</word>
-    <word number="1">зіронька</word>
-    <word number="1">встає</word>
-    <word number="1">Дочка</word>
-    <word number="1">подає</word>
-    <word number="2">мати</word>
-    <word number="1">хоче</word>
-    <word number="1">научати</word>
-    <word number="1">Так</word>
-    <word number="2">соловейко</word>
-    <word number="2">не</word>
-    <word number="1">дає</word>
-    <word number="1">Поклала</word>
-    <word number="1">Маленьких</word>
-    <word number="1">діточок</word>
-    <word number="1">своїх</word>
-    <word number="1">Сама</word>
-    <word number="1">заснула</word>
-    <word number="1">їх</word>
-    <word number="1">Затихло</word>
-    <word number="1">все</word>
-    <word number="1">тілько</word>
-    <word number="1">Та</word>
-    <word number="1">затих</word>
+    <word>док-1-('Садок', 1, 1)</word>
+    <word>вий-1-('вишневий', 1, 2)</word>
+    <word>оло-4-('коло', 1, 3)('коло', 6, 3)('коло', 11, 3)('коло', 13, 3)</word>
+    <word>ати-6-('хати', 1, 4)('хати', 6, 4)('мати', 9, 2)('научати', 9, 4)('мати', 11, 2)('хати', 11, 4)</word>
+    <word>ущі-1-('Хрущі', 2, 1)</word>
+    <word>над-1-('над', 2, 2)</word>
+    <word>ями-1-('вишнями', 2, 3)</word>
+    <word>уть-3-('гудуть', 2, 4)('йдуть', 3, 4)('ждуть', 5, 4)</word>
+    <word>арі-1-('Плугатарі', 3, 1)</word>
+    <word>ами-1-('плугами', 3, 3)</word>
+    <word>ють-1-('Співають', 4, 1)</word>
+    <word>учи-1-('ідучи', 4, 2)</word>
+    <word>ата-2-('дівчата', 4, 3)('дівчата', 14, 4)</word>
+    <word>ері-1-('матері', 5, 2)</word>
+    <word>ять-2-('вечерять', 5, 3)('вечерять', 8, 2)</word>
+    <word>еря-1-('вечеря', 6, 2)</word>
+    <word>рня-1-('Вечірня', 7, 1)</word>
+    <word>ька-1-('зіронька', 7, 2)</word>
+    <word>тає-1-('встає', 7, 3)</word>
+    <word>чка-1-('Дочка', 8, 1)</word>
+    <word>дає-2-('подає', 8, 3)('дає', 10, 4)</word>
+    <word>оче-1-('хоче', 9, 3)</word>
+    <word>Так-1-('Так', 10, 1)</word>
+    <word>йко-2-('соловейко', 10, 2)('соловейко', 15, 2)</word>
+    <word>ала-1-('Поклала', 11, 1)</word>
+    <word>ких-1-('Маленьких', 12, 1)</word>
+    <word>чок-1-('діточок', 12, 2)</word>
+    <word>оїх-1-('своїх', 12, 3)</word>
+    <word>ама-1-('Сама', 13, 1)</word>
+    <word>ула-1-('заснула', 13, 2)</word>
+    <word>хло-1-('Затихло', 14, 1)</word>
+    <word>все-1-('все', 14, 2)</word>
+    <word>ько-1-('тілько', 14, 3)</word>
+    <word>тих-1-('затих', 15, 4)</word>
 </root>

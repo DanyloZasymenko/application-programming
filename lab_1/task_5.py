@@ -4,7 +4,7 @@ array = []
 
 def do(arr):
     for i in arr:
-        if isinstance(i, list):
+        if isinstance(i, list) or isinstance(i, tuple):
             do(i)
         else:
             array.append(i)
