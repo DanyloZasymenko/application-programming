@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for good in goods %}
+        <article class="media content-section">
+            <img class="rounded-circle article-img"
+                 src="{{ url_for('static', filename='profile_pics/' + good.user.image_file) }}">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ good.user.username }}</a>
+              <small class="text-muted">{{ good.date_posted.strftime('%d-%m-%Y') }}</small>
+            </div>
+            <h2><a class="article-title" href="{{ url_for('good_one', good_id=good.id) }}">{{ good.name }}</a></h2>
+              <p class="article-content">{{ good.producer }}</p>
+              <p class="article-content">{{ good.description }}</p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}
