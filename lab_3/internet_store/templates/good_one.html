@@ -1,13 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
     <article class="media content-section">
-        <img class="rounded-circle article-img"
-             src="{{ url_for('static', filename='profile_pics/' + good.user.image_file) }}">
+        <img class="article-img"
+             src="{{ url_for('static', filename='good_pics/' + good.image_file) }}">
       <div class="media-body">
         <div class="article-metadata">
-            <a class="mr-2" href="#">{{ good.user.username }}</a>
             <small class="text-muted">{{ good.date_posted.strftime('%d-%m-%Y') }}</small>
-            {% if good.user == current_user %}
+            {% if current_user.role.value == 'Admin' %}
                 <div>
                     <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('good_update', good_id=good.id) }}">Update</a>
                     <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
@@ -16,6 +15,7 @@
         </div>
           <h2 class="article-title">{{ good.name }}</h2>
           <p class="article-content">{{ good.producer }}</p>
+          <p class="article-content">{{ good.number_available }}</p>
           <p class="article-content">{{ good.description }}</p>
       </div>
     </article>

@@ -6,6 +6,7 @@
         <div class="media-body">
           <h2 class="account-heading">{{ current_user.username }}</h2>
           <p class="text-secondary">{{ current_user.email }}</p>
+          <p class="text-secondary">{{ current_user.role }}</p>
         </div>
       </div>
         <form action="" method="post" enctype="multipart/form-data">
@@ -52,5 +53,24 @@
                 {{ form.submit(class="btn btn-outline-info") }}
             </div>
         </form>
+        <h3>My goods:</h3>
+        {% if not goods %}
+            <p class="text-secondary">No goods yet</p>
+        {% endif %}
+        {% for good in goods %}
+            <article class="media content-section">
+                <img class="article-img"
+                     src="{{ url_for('static', filename='good_pics/' + good[1].image_file) }}">
+              <div class="media-body">
+                <div class="article-metadata">
+                  <small class="text-muted">{{ good[1].date_posted.strftime('%d-%m-%Y') }}</small>
+                </div>
+                <h2><a class="article-title" href="{{ url_for('good_one', good_id=good[1].id) }}">{{ good[1].name }}</a></h2>
+                  <p class="article-content">{{ good[1].producer }}</p>
+                  <p class="article-content">{{ good[1].description }}</p>
+                  <p class="article-content">{{ good[0] }}</p>
+              </div>
+            </article>
+        {% endfor %}
       </div>
 {% endblock content %}

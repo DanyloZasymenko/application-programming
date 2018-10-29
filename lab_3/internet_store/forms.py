@@ -1,8 +1,8 @@
 from flask_login import current_user
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, IntegerField
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange
 
 from lab_3.internet_store.models import User
 
@@ -64,4 +64,7 @@ class GoodForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired(), Length(max=30)])
     producer = StringField('Producer', validators=[DataRequired(), Length(max=30)])
     description = TextAreaField('Description', validators=[DataRequired()])
+    picture = FileField('Choose the good picture',
+                        validators=[FileAllowed(['jpg', 'png'])])
+    number_available = IntegerField('Number available', validators=[NumberRange(min=0)])
     submit = SubmitField('Add')

@@ -7,7 +7,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 
 from lab_3.internet_store import app, db, bCrypt
 from lab_3.internet_store.forms import RegistrationForm, LoginForm, UpdateAccountForm, GoodForm
-from lab_3.internet_store.models import User, Good
+from lab_3.internet_store.models import User, Good, Roles, UsersGoods
 
 
 @app.route("/")
@@ -59,11 +59,11 @@ def logout():
     return redirect(url_for('home'))
 
 
-def save_picture(form_picture):
+def save_picture(form_picture, folder):
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext
-    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
+    picture_path = os.path.join(app.root_path, 'static/', folder, picture_fn)
 
     output_size = (125, 125)
     i = Image.open(form_picture)
@@ -77,9 +77,13 @@ def save_picture(form_picture):
 @login_required
 def account():
     form = UpdateAccountForm()
+    goods = []
+    for a in current_user.stock:
+        goods.append((a.number, Good.query.filter_by(id=a.good_id).first()))
     if form.validate_on_submit():
+        print(form.picture.data)
         if form.picture.data:
-            current_user.image_file = save_picture(form.picture.data)
+            current_user.image_file = save_picture(form.picture.data, 'profile_pics')
         current_user.username = form.username.data
         current_user.email = form.email.data
         db.session.commit()
@@ -89,7 +93,8 @@ def account():
         form.username.data = current_user.username
         form.email.data = current_user.email
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-    return render_template("account.html", title='Account', image_file=image_file, form=form)
+    print(goods)
+    return render_template("account.html", title='Account', image_file=image_file, form=form, goods=goods)
 
 
 @app.route("/good/new", methods=['GET', 'POST'])
@@ -98,29 +103,35 @@ def new_good():
     form = GoodForm()
     if form.validate_on_submit():
         good = Good(name=form.name.data, producer=form.producer.data,
-                    description=form.description.data, user=current_user)
+                    description=form.description.data, number_available=form.number_available.data)
+        if form.picture.data:
+            good.image_file = save_picture(form.picture.data, 'good_pics')
         db.session.add(good)
         db.session.commit()
         flash('The good has been added!', 'success')
         return redirect(url_for('home'))
-    return render_template("new_good.html", title='New Good', form=form, legend="Update Good")
+    return render_template("new_good.html", title='New Good', form=form, legend="Add Good")
 
 
 @app.route("/good/<int:good_id>")
 def good_one(good_id):
     good = Good.query.get_or_404(good_id)
-    return render_template('post_one.html', title=good.name, good=good)
+    return render_template('good_one.html', title=good.name, good=good)
 
 
 @app.route("/good-update/<int:good_id>", methods=['GET', 'POST'])
+@login_required
 def good_update(good_id):
     good = Good.query.get_or_404(good_id)
-    if good.user != current_user:
+    if current_user.role != Roles.ADMIN:
         abort(403)
     form = GoodForm()
     if form.validate_on_submit():
+        if form.picture.data:
+            good.image_file = save_picture(form.picture.data, 'good_pics')
         good.name = form.name.data
         good.producer = form.producer.data
+        good.number_available = form.number_available.data
         good.description = form.description.data
         db.session.commit()
         flash('The good has been updated!', 'success')
@@ -128,16 +139,35 @@ def good_update(good_id):
     elif request.method == 'GET':
         form.name.data = good.name
         form.producer.data = good.producer
+        form.number_available.data = good.number_available
         form.description.data = good.description
     return render_template("new_good.html", title='Update ' + good.name, form=form, legend="Update Good")
 
 
 @app.route("/good-delete/<int:good_id>", methods=['POST'])
+@login_required
 def good_delete(good_id):
     good = Good.query.get_or_404(good_id)
-    if good.user != current_user:
+    if current_user.role != Roles.ADMIN:
         abort(403)
     db.session.delete(good)
     db.session.commit()
     flash('The good has been deleted!', 'danger')
+    return redirect(url_for('home'))
+
+
+@app.route("/good-buy/<int:good_id>", methods=['GET'])
+@login_required
+def good_buy(good_id):
+    good = Good.query.get_or_404(good_id)
+    ug = UsersGoods(user_id=current_user.id, good_id=good.id, number=1)
+    for a in UsersGoods.query.all():
+        if a.good_id == good.id and a.user_id == current_user.id:
+            ug = a
+            ug.number += 1
+    good.stock.append(ug)
+    current_user.stock.append(ug)
+    good.number_available -= 1
+    db.session.commit()
+    flash('Thank you for buying ' + good.name, 'success')
     return redirect(url_for('home'))
