@@ -33,7 +33,7 @@ class User(db.Model, UserMixin):
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
     role = db.Column(db.Enum(Roles), default=Roles.USER)
     stock = db.relationship('UsersGoods', backref='user',
-                            primaryjoin=id == UsersGoods.user_id)
+                            primaryjoin=id == UsersGoods.user_id, cascade='all, delete')
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"
@@ -48,7 +48,7 @@ class Good(db.Model):
     image_file = db.Column(db.String(20), nullable=False, default='default-product.jpg')
     number_available = db.Column(db.Integer, nullable=False, default=0)
     stock = db.relationship('UsersGoods', backref='good',
-                            primaryjoin=id == UsersGoods.good_id)
+                            primaryjoin=id == UsersGoods.good_id, cascade='all, delete')
 
     def __repr__(self):
         return f"Good('{self.name}', '{self.producer}', '{self.date_posted}', '{self.number_available}')"

@@ -6,7 +6,7 @@
       <div class="media-body">
         <div class="article-metadata">
             <small class="text-muted">{{ good.date_posted.strftime('%d-%m-%Y') }}</small>
-            {% if current_user.role.value == 'Admin' %}
+            {% if current_user.is_authenticated and current_user.role.value == 'Admin' %}
                 <div>
                     <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('good_update', good_id=good.id) }}">Update</a>
                     <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
