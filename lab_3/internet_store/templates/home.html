@@ -14,11 +14,13 @@
               <p class="article-content">{{ good.number_available }}</p>
               {% if current_user.is_authenticated %}
                 {% if good.number_available > 0 %}
-                    <a class="btn btn-outline-success" href="{{ url_for('good_buy', good_id=good.id) }}">Buy</a>
+                    <a class="btn btn-outline-success" href="{{ url_for('good_one', good_id=good.id) }}">Buy</a>
                 {% else %}
-                    <a class="btn btn-outline-danger disabled" href="{{ url_for('good_buy', good_id=good.id) }}">Buy</a>
+                    <a class="btn btn-outline-danger" href="{{ url_for('good_one', good_id=good.id) }}">Buy</a>
                     <p class="article-content">No available</p>
                 {% endif %}
+              {% else %}
+                <p class="text-muted"><a href="{{ url_for('login') }}">Login</a> to buy goods!</p>
               {% endif %}
           </div>
         </article>

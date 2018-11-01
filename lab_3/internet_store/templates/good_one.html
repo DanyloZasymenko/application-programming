@@ -17,6 +17,16 @@
           <p class="article-content">{{ good.producer }}</p>
           <p class="article-content">{{ good.number_available }}</p>
           <p class="article-content">{{ good.description }}</p>
+          {% if current_user.is_authenticated %}
+            {% if good.number_available > 0 and good.available == True %}
+                <a class="btn btn-outline-success" href="{{ url_for('good_buy', good_id=good.id) }}">Buy</a>
+            {% else %}
+                <a class="btn btn-outline-danger disabled" href="{{ url_for('good_buy', good_id=good.id) }}">Buy</a>
+                <p class="article-content">No available</p>
+            {% endif %}
+          {% else %}
+            <p class="text-muted"><a href="{{ url_for('login') }}">Login</a> to buy goods!</p>
+          {% endif %}
       </div>
     </article>
     <!-- Modal -->
