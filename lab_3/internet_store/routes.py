@@ -13,7 +13,7 @@ from lab_3.internet_store.models import User, Good, Roles, UsersGoods
 @app.route("/")
 @app.route("/home")
 def home():
-    goods = Good.query.all()
+    goods = Good.query.filter_by(available=True)
     return render_template("home.html", goods=goods)
 
 
@@ -150,7 +150,10 @@ def good_delete(good_id):
     good = Good.query.get_or_404(good_id)
     if current_user.role != Roles.ADMIN:
         abort(403)
-    db.session.delete(good)
+    if good.stock:
+        good.available = False
+    else:
+        db.session.delete(good)
     db.session.commit()
     flash('The good has been deleted!', 'danger')
     return redirect(url_for('home'))

@@ -47,6 +47,7 @@ class Good(db.Model):
     description = db.Column(db.Text, nullable=False)
     image_file = db.Column(db.String(20), nullable=False, default='default-product.jpg')
     number_available = db.Column(db.Integer, nullable=False, default=0)
+    available = db.Column(db.Boolean, nullable=False, default=True)
     stock = db.relationship('UsersGoods', backref='good',
                             primaryjoin=id == UsersGoods.good_id, cascade='all, delete')
 
