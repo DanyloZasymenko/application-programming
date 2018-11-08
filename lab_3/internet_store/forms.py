@@ -8,14 +8,10 @@ from lab_3.internet_store.models import User
 
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Username',
-                           validators=[DataRequired(), Length(min=2, max=20)])
-    email = StringField('Email',
-                        validators=[DataRequired(), Email()])
-    password = PasswordField('Password',
-                             validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm password',
-                                     validators=[DataRequired(), EqualTo('password')])
+    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    confirm_password = PasswordField('Confirm password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')
 
     def validate_username(self, username):
@@ -30,21 +26,16 @@ class RegistrationForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    username = StringField('Username',
-                           validators=[DataRequired(), Length(min=2, max=20)])
-    password = PasswordField('Password',
-                             validators=[DataRequired()])
+    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
+    password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Sign Up')
 
 
 class UpdateAccountForm(FlaskForm):
-    username = StringField('Username',
-                           validators=[DataRequired(), Length(min=2, max=20)])
-    email = StringField('Email',
-                        validators=[DataRequired(), Email()])
-    picture = FileField('Update your profile picture',
-                        validators=[FileAllowed(['jpg', 'png'])])
+    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    picture = FileField('Update your profile picture', validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField('Update')
 
     def validate_username(self, username):
@@ -64,7 +55,6 @@ class GoodForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired(), Length(max=30)])
     producer = StringField('Producer', validators=[DataRequired(), Length(max=30)])
     description = TextAreaField('Description', validators=[DataRequired()])
-    picture = FileField('Choose the good picture',
-                        validators=[FileAllowed(['jpg', 'png'])])
+    picture = FileField('Choose the good picture', validators=[FileAllowed(['jpg', 'png'])])
     number_available = IntegerField('Number available', validators=[NumberRange(min=0)])
     submit = SubmitField('Add')
